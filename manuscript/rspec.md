@@ -1,16 +1,13 @@
-# -*- coding: utf-8 -*-
 # RSpec
 
-
 ## Basic RSpec Structure
-
 
 ### describe
 
 describe accepts a string or class. It is used to organize specs.
 
 ```
-          describe User do
+  describe User do
   end
         describe 'a user who has admin access' do
   end
@@ -33,8 +30,7 @@ end
 expect().to is RSpec’s assertion syntax.
 
 ```
-
-          describe Array do
+  describe Array do
     it 'reports a length of zero without any values' do
       expect([].length).to eq 0
     end
@@ -46,7 +42,7 @@ expect().to is RSpec’s assertion syntax.
 expect().not_to is the inverse of expect().to.
 
 ```
-          describe Array, 'with items' do
+  describe Array, 'with items' do
     it 'reports a length of anything other than zero' do
       expect([1, 2, 3].length).not_to eq 0
     end
@@ -55,13 +51,12 @@ expect().not_to is the inverse of expect().to.
 
 ## Callbacks
 
-
 ### before
 
 before runs the specified block before each test. Often encourages bad tests.
 
 ```
-          describe User, 'with friends' do
+  describe User, 'with friends' do
     subject { User.new }
     before { subject.friends += [ Friend.new, Friend.new ] }
     it 'counts friends' do
@@ -75,7 +70,7 @@ before runs the specified block before each test. Often encourages bad tests.
 after runs the specified block after each test. Typically unnecessary.
 
 ```
-          describe ReportGenerator, 'generating a PDF' do
+  describe ReportGenerator, 'generating a PDF' do
     after { ReportGenerator.cleanup_generated_files }
     it 'includes the correct data' do
       expect(ReportGenerator.generate_pdf([1, 2, 3]).points.length).to eq 3
@@ -85,8 +80,7 @@ after runs the specified block after each test. Typically unnecessary.
 
 ### around
 
-around runs the specified code around each test. To execute the test, call run on the
-block variable. Useful for class_attribute dependency injection.
+around runs the specified code around each test. To execute the test, call run on the block variable. Useful for class_attribute dependency injection.
 
 ```
     describe ReportGenerator, 'with a custom PDF builder' do
@@ -105,8 +99,8 @@ block variable. Useful for class_attribute dependency injection.
 
 ### its
 
-its accepts a method (as a symbol) and a block, executing the method and performing
-an assertion on the result.
+its accepts a method (as a symbol) and a block, executing the method and performing an assertion on the result.
+
 ```
     describe User, 'with admin access' do
       subject { User.create(admin: true, name: 'John Doe') }
@@ -115,13 +109,11 @@ an assertion on the result.
 ```
 
 
-While this looks pretty nice, pay attention to the behavior: For each its, the subject is
-mutating!
+While this looks pretty nice, pay attention to the behavior: For each its, the subject is mutating!
 
 ### let
 
-let lazily-evaluates a block and names it after the symbol. It often leads to “mystery
-guest” and “general fixture”.
+let lazily-evaluates a block and names it after the symbol. It often leads to “mystery guest” and “general fixture”.
 
 
 ```
@@ -139,7 +131,6 @@ guest” and “general fixture”.
 let! behaves like let but is not lazily-evaluated (it runs regardless if the spec uses it).
 
 ```
-
     describe User, 'with admin access' do
       let!(:friends) { [Friend.new, Friend.new] }
       subject { User.with_friends(friends) }
@@ -158,7 +149,6 @@ subject helps signify what’s being tested but can lead to “mystery guest” 
 encouraging other bad habits like before blocks.
 
 ```
-
       describe User, 'with admin access' do
         subject { User.create(admin: true, name: 'John Doe') }
         it "displays its admin capabilities in its name" do
@@ -177,12 +167,10 @@ encouraging other bad habits like before blocks.
 
 ## Things to Avoid
 
-
 ### Inline Code in the Test
 
-Here’s an alternate implementation to using subject and let (or before); we build
-the list of friends and the user within the test, making it immediately obvious which
-variables are used.
+Here’s an alternate implementation to using subject and let (or before); we build the list of friends and the user within the test, making it immediately obvious which variables are used.
+
 ```
 describe User do
   it 'keeps track of friends correctly' do
@@ -192,10 +180,10 @@ expect(user.friends).to eq friends
 end
 end
 ```
+
 ### Extract Helper Methods
 
-Here’s an alternate implementation to using subject; we build the object instance
-within the test, extracting a method which generates a user with the attributes assigned.
+Here’s an alternate implementation to using subject; we build the object instance within the test, extracting a method which generates a user with the attributes assigned.
 
 ```
       describe User, '#display_name' do
@@ -216,10 +204,11 @@ within the test, extracting a method which generates a user with the attributes 
 
 ## Alternative Solutions for Things to Avoid
 
-Inline Code in the Test
-Here’s an alternate implementation to using subject and let (or before); we build
-the list of friends and the user within the test, making it immediately obvious which
-variables are used.
+### Inline Code in the Test
+
+Here’s an alternate implementation to using subject and let (or before); we build the list of friends and the user within the test, making it immediately obvious which variables are used.
+
+```
 describe User do
 it 'keeps track of friends correctly' do
 friends = [Friend.new, Friend.new]
@@ -227,9 +216,13 @@ user = User.with_friends(friends)
 expect(user.friends).to eq friends
 end
 end
-Extract Helper Methods
-Here’s an alternate implementation to using subject; we build the object instance
-within the test, extracting a method which generates a user with the attributes assigned.
+```
+
+### Extract Helper Methods
+
+Here’s an alternate implementation to using subject; we build the object instance within the test, extracting a method which generates a user with the attributes assigned.
+
+``` 
 describe User, '#display_name' do
 it 'displays its admin capabilities in its name when an admin' do
 user = build_user name: 'John Doe', admin: true
@@ -243,14 +236,13 @@ def build_user(options)
 User.new(options)
 end
 end
+```
 
 ## Test Optimizations
 
-
 ### Extract Complex Helper Methods
 
-Define your own methods to use within the context of the describe block. Another way
-to simplify tests by displaying intent with method names.
+Define your own methods to use within the context of the describe block. Another way to simplify tests by displaying intent with method names.
 
 ```
 describe InvitationMailer do

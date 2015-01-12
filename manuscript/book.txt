@@ -1,4 +1,2 @@
 rspec.md
 factory_girl.md
-
-
