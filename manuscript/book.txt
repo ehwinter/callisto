@@ -1,2 +1,4 @@
-chapter01.txt
-chapter02.txt
+rspec.md
+factory_girl.md
+
+
