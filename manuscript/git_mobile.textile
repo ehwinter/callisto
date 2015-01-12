@@ -1,0 +1,49 @@
+h2. Highly mobile use case
+
+two repositories say origin and cache
+origin - is the reference
+cache - is the cache is another repo on another machine.  private and trashy were wip is stored. Final product will be squashed then merged into origin.
+
+
+h4. Branches on local:
+
+master - in synch with origin
+ehw-master - branches from master used as astaging area for master.
+scratch - working copy
+master->ehw-master->scratch 
+
+h4. Starting out: synchronize branches and cache
+
+git fetch origin #Any new changes
+git fetch cache
+gitk --all 
+#on master git pull origin master
+git checkout ehw-master
+git reset --hard master # ehw-master = master
+git checkout scratch
+git reset --hard master
+git push -f cache ehw-master # reset remote repo too.
+git push -f cache scratch
+
+h4. when changing machines save state to scratch
+
+git commit stuff on t234
+git checkout scratch
+git reset --soft t234 # point HEAD to t234
+git push cache scratch #or just scratch
+git push -f cache scratch #if scratch has move in an non fast forward way.
+#all commits go to scratch
+#later squash a comleted defect into ehw-master
+
+h4. regularly update from master.
+
+git checkout master
+git pull
+git checkout t234
+git merge -s resolve master #a couple of times.
+
+
+h4. add stuff back into master
+git checkout -b ehw-master
+git merge -s resolve --squash
+if master changes you may need a rebase.

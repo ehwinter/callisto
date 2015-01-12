@@ -1,0 +1,84 @@
+h1. Git Creating a new Git Repository
+
+Two methods
+
+* create server repository first and pull (method 1)
+* create on local machine the push to an empty repository on server (method 2)
+
+You should use _method 1_ if you have nothing.  You should use method 2 if you already have an existing git repo and now want to push it to a home in the clouds.
+
+h1. Method 0 cloning an existing repo
+
+h2. Create a new fresh repository
+
+Not very typical to create a fresh repsitory.  Usually you already have an existing one.  But this is a good way of making a clean start.
+
+* mkdir newgit
+
+* cd newgit
+ 
+* git clone git@yourRepsoitoryNameHere
+
+h1. Method 1: create server repository first and pull 
+
+h2. Create empty repository on host (hosting rails assumed)
+
+* cd ~/git/holder_dir_for_applications/
+* mkdir newapp
+* cd newapp
+* git init
+* echo " " > readme.txt
+* git add .
+* git commit
+
+h2. Now on your (local) machine:
+
+* go to a temp directory
+* run pagent and log in
+* git clone username@urlofyourhost.com:git/holder_dir_for_applications/newapp
+
+h3. Set the appropriate files to ignore (on local machine)
+
+Add files to _.git/info/exludes_
+* *~
+* log/*
+* .project
+* .loadpath
+
+I use emacs and radrails
+
+
+h1. Method 2: create on local machine the push to an empty repository on server 
+
+This is the method to use when you already have a real git repo and now it's ready for prime time and needs to be pushed to a remote server.
+
+h2. On the Server
+* Create an empty git repo on the server
+* cd ~git
+* cd git/poc
+* mkdir somthing
+* cd something
+* gdir=`pwd`
+* cd $gdir
+* git init
+* #Allow pushes from master to the current (master) branch on remote
+** git config receive.denycurrentbranch ignore
+* now the directory is ready to receive...
+.
+
+h2. On the local machine
+* cd to the local git repository (has dir .git in it)
+* cd /c/work/php/wordpress
+* from server window copy/past directory name
+* gdir=git/php/wordpress
+* git remote add makalu git@makalu.webicus.com:$gdir
+* or
+* git remote add origin git@makalu.webicus.com:$gdir
+* git push origin master
+* or
+* git push makalu master
+* git push origin some-other-branch
+* done (now check the server)
+
+h2. On the server
+* look empty? try git checkout master

@@ -1,2 +1,3 @@
 rspec.md
 factory_girl.md
+git.md

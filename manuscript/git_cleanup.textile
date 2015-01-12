@@ -1,0 +1,27 @@
+
+h2. Cleaning up branches
+
+h4. remove local branches
+
+while on say master, remove local branch scratch
+git branch -D scratch
+
+h4. remove branches on remote
+
+Now remove scratch from the remote makalu:
+git push makalu :scratch
+
+h4. resynch/prune no longer useful branches 
+
+If you go to another machine scratch will not longer exist on remote makalu so you will have to do this to remove the now deprecated remote. This command actually resynch and prunes all non-existant remote branches in your local repo.
+
+git remote prune makalu # makalu is the name of the remote, could be origin or upstream...
+
+h2. Prune: get rid of useless commits
+
+If you do branch/merge some commits are no longer referenced
+
+git prune
+git gc --prune=now
+
+
