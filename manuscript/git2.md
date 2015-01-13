@@ -1,15 +1,15 @@
 # Git Basics
 
-### How to create a new fresh repository
+## How to create a new fresh repository
 
 [[url:https://www.assembla.com/wiki/show/fotw/Git-creating_a_new_repsitory|How to create a new repository]]
 [[url:https://www.assembla.com/spaces/fotw/wiki/Git_Mobile_Case_-_throwaway_branches|Git mobile case - throwaway branches]]
 
-### Cleaning up: branches, remotes, pruning, etc
+## Cleaning up: branches, remotes, pruning, etc
 
 [[url:https://www.assembla.com/spaces/fotw/wiki/Git_-_Cleaning_up|Git Clean Up - cleanliness is next to Godliness]]
 
-#### Handy Commands
+### Handy Commands
 
 ```
 see what origin is set to:
@@ -19,12 +19,12 @@ set a new one:
 git config remote.origin.url thegituser@makalu:git/cloud/walkull
 ```
 
-#### Typical Flow
+### Typical Flow
 
 Here is a typical example of using Git with multiple branches.
 
 
-### Git Flow
+## Git Flow
 
 ```
 "git flow description":http://nvie.com/posts/a-successful-git-branching-model/
@@ -33,7 +33,7 @@ v1.0, vX - release branch
 develop - primary development branch
 ```
 
-h5. typical flow
+#### typical flow
 
 ```
 git checkout -b feature/something
@@ -46,7 +46,7 @@ git merge --no-ff feature/something
 # nice clean branch history
 ```
 
-### Create/Apply a Patch
+## Create/Apply a Patch
 
 If you can not push to a github repo or clone/pull request create a patch:
 ```
@@ -63,7 +63,7 @@ $ git am --signoff < spree2tax-render_branch.patch  # do the application of the 
 Applying: ajax tax render fix
 ```
 
-### Create local branches (to track remote branches)
+## Create local branches (to track remote branches)
 
 This would be used if you do not already have local branches set up (e.g. if you created a new repository), or if you never had a local copy of a particular "tracking branch" (i.e. a local branch that tracks the remote branch).
  
@@ -73,7 +73,7 @@ This would be used if you do not already have local branches set up (e.g. if you
  
 * git checkout -b communication -f remotes/origin/communication
 
-### Create Local Branches
+## Create Local Branches
 
 Create a local branch (splits it from master)
 
@@ -134,7 +134,7 @@ If following commands directly from the above, checkout -f to your working branc
  
 * git commit
 
-### get new files on this branch that someone else may have made
+## get new files on this branch that someone else may have made
 
  * git fetch
 
@@ -150,7 +150,7 @@ If following commands directly from the above, checkout -f to your working branc
 
 * test to valididate
 
-### push current version to git repository
+## push current version to git repository
 
 * git push origin communication
 
@@ -191,7 +191,7 @@ Clean up old unused commits (check it...)
 * git reflog expire --all --expire=now --dry-run --verbose
 
 
-### Set the appropriate files to ignore (on local machine)
+## Set the appropriate files to ignore (on local machine)
 
 Add files to _.git/info/exludes_
 
@@ -200,25 +200,25 @@ Add files to _.git/info/exludes_
 * .project
 * .loadpath
 
-### Handy commands from: schacon@gmail.com
+## Handy commands from: schacon@gmail.com
 
-#### books/sites
+### books/sites
 
 * Git Internals
 * Pro Git proGit.org
 
-#### incremental changes
+### incremental changes
 
 git add -p (add chunks)
 
-#### viewing _whole_ tree
+### viewing _whole_ tree
 
 ```
 gitk --all
 git log --graph --all
 ```
 
-#### remote servers/repositories
+### remote servers/repositories
 
 ```
 
@@ -228,7 +228,7 @@ git push origin master (push master branch to the origin remote server)
 ```
 
 
-#### fetch!
+### fetch!
 
 git fetch (pull will try to merge it, fetch just gets it. better than pull)
 
@@ -240,7 +240,9 @@ git bisect reset
 
 
 
-# from err the blog
+# Git Overview: err the blog
+
+Content from err the blog
 
 Setup
 -----
